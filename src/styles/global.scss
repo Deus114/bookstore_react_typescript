@@ -1,3 +1,24 @@
 * {
     margin: 0;
 }
+
+.register {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 35%;
+    margin: auto;
+    font-family: arial;
+    padding: 10px;
+    margin-top: 2%;
+    margin-bottom: 5%;
+    background-color: white;
+
+    .navigate {
+        margin-left: 2%;
+        color: blue;
+
+        &:hover {
+            cursor: pointer;
+            opacity: 0.6;
+        }
+    }
+}
