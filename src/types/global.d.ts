@@ -19,7 +19,7 @@ declare global {
     }
 
     interface ILogin {
-        accessToken: string,
+        access_token: string,
         user: {
             email: string,
             phone: string,
@@ -34,6 +34,23 @@ declare global {
         _id: string,
         email: string,
         fullName: string
+    }
+
+    interface IUser {
+        email: string,
+        phone: string,
+        fullName: string,
+        role: string,
+        avatar: string,
+        id: string
+    }
+
+    interface IFetchAccount {
+        user: IUser
+    }
+
+    interface IProps {
+        children: React.ReactNode
     }
 
 }

@@ -1,8 +1,9 @@
 import type { FormProps } from 'antd';
 import { App, Button, Divider, Form, Input } from 'antd';
+import { useCurrentApp } from 'components/context/app.context';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginApi, registerApi } from 'services/api';
+import { loginApi } from 'services/api';
 
 
 type FieldType = {
@@ -14,14 +15,17 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const [isSubmit, setIsSubmit] = useState(false);
     const { message, notification } = App.useApp();
+    const { setUser, setIsAuthenticated } = useCurrentApp();
 
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
         setIsSubmit(true);
         const { username, password } = values;
-
         const res = await loginApi(username, password);
+
         if (res?.data) {
-            localStorage.setItem("access_token", res.data.accessToken)
+            setIsAuthenticated(true);
+            setUser(res.data.user);
+            localStorage.setItem("access_token", res.data.access_token)
             message.success("Đăng nhập thành công!");
             navigate("/");
         } else {

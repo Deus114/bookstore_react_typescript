@@ -3,10 +3,12 @@ import AppHeader from "./components/layout/app.header";
 
 const Layout = () => {
     return (
-        <div>
-            <AppHeader />
-            <Outlet />
-        </div>
+        <>
+            <div>
+                <AppHeader />
+                <Outlet />
+            </div>
+        </>
     )
 }
 
