@@ -3,7 +3,6 @@ import {
     AppstoreOutlined,
     ExceptionOutlined,
     HeartTwoTone,
-    TeamOutlined,
     UserOutlined,
     DollarCircleOutlined,
     MenuFoldOutlined,
@@ -42,21 +41,9 @@ const LayoutAdmin = () => {
             icon: <AppstoreOutlined />
         },
         {
-            label: <span>Manage Users</span>,
+            label: <Link to='/admin/user'>Manage Users</Link>,
             key: 'user',
-            icon: <UserOutlined />,
-            children: [
-                {
-                    label: <Link to='/admin/user'>CRUD</Link>,
-                    key: 'crud',
-                    icon: <TeamOutlined />,
-                },
-                // {
-                //     label: 'Files1',
-                //     key: 'file1',
-                //     icon: <TeamOutlined />,
-                // }
-            ]
+            icon: <UserOutlined />
         },
         {
             label: <Link to='/admin/book'>Manage Books</Link>,

@@ -15,7 +15,7 @@ declare global {
             pages: number;
             total: number;
         },
-        results: T[]
+        result: T[]
     }
 
     interface ILogin {
@@ -51,6 +51,24 @@ declare global {
 
     interface IProps {
         children: React.ReactNode
+    }
+
+    interface IUserTable {
+        email: string,
+        phone: string,
+        fullName: string,
+        role: string,
+        avatar: string,
+        _id: string,
+        isACtive: string,
+        createdAt: Date,
+        updatedAt: Date
+    }
+
+    interface IResponseImport {
+        countSuccess: number,
+        countError: number,
+        detail: any
     }
 
 }
