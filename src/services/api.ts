@@ -54,3 +54,55 @@ export const deleteUserApi = (_id: string) => {
     const backendUrl = `/api/v1/user/${_id}`;
     return axios.delete<IBackendRes<IRegister>>(backendUrl,);
 };
+
+export const getBookApi = (query: string) => {
+    const backendUrl = `/api/v1/book?${query}`;
+    return axios.get<IBackendRes<IModelPaginate<IBookTable>>>(backendUrl);
+};
+
+export const getCategoriesApi = () => {
+    const backendUrl = `/api/v1/database/category`;
+    return axios.get<IBackendRes<string[]>>(backendUrl);
+};
+
+export const uploadFileApi = (fileImg: any, folder: string) => {
+    const formData = new FormData();
+    formData.append('fileImg', fileImg);
+    return axios<IBackendRes<{ fileUploaded: string }>>({
+        method: "post",
+        url: "/api/v1/file/upload",
+        data: formData,
+        headers: {
+            "Content-Type": "multipart/form-data",
+            "upload-type": folder
+        }
+    })
+}
+
+export const createBookApi = (
+    mainText: string, author: string,
+    category: string, price: number, quantity: number,
+    thumbnail: string, slider: string[]
+) => {
+    const backendUrl = `/api/v1/book`;
+    return axios.post<IBackendRes<IRegister>>(backendUrl,
+        { mainText, author, category, price, quantity, thumbnail, slider }
+    );
+};
+
+export const updateBookApi = (
+    _id: string,
+    mainText: string, author: string,
+    category: string, price: number, quantity: number,
+    thumbnail: string, slider: string[]
+) => {
+    const backendUrl = `/api/v1/book/${_id}`;
+    return axios.put<IBackendRes<IRegister>>(backendUrl,
+        { mainText, author, category, price, quantity, thumbnail, slider }
+    );
+};
+
+export const deleteBookApi = (_id: string) => {
+    const backendUrl = `/api/v1/book/${_id}`;
+    return axios.delete<IBackendRes<IRegister>>(backendUrl);
+}
