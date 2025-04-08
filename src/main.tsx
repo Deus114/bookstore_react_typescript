@@ -4,11 +4,10 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import BookPage from 'pages/client/book';
 import AboutPage from 'pages/client/about';
 import LoginPage from 'pages/client/auth/login';
 import RegisterPage from 'pages/client/auth/register';
-import "style/global.scss"
+import "styles/global.scss"
 import HomePage from 'pages/client/home';
 import { App, ConfigProvider } from 'antd';
 import { AppProvider } from 'components/context/app.context';
@@ -20,6 +19,7 @@ import LayoutAdmin from 'components/layout/layout.admin';
 import { ProtectedRoute } from 'components/protected/protected-page';
 import Layout from './layout';
 import enUS from 'antd/locale/en_US';
+import BookPage from 'components/client/book/book';
 
 const router = createBrowserRouter([
   {
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
         element: <HomePage />
       },
       {
-        path: "/book",
+        path: "/book/:id",
         element: <BookPage />,
       },
       {

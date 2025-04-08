@@ -23,7 +23,7 @@
       "pages/*": [
         "./src/pages/*"
       ],
-      "style/*": [
+      "styles/*": [
         "./src/styles/*"
       ],
       "services/*": [

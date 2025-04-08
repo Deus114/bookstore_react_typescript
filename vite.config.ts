@@ -12,5 +12,14 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler', // or "modern"
+        silenceDeprecations: ['mixed-decls', 'color-functions', 'global-builtin', 'import']
+      }
+    }
+  }
+
 })
 

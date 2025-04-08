@@ -85,4 +85,10 @@ declare global {
         updatedAt: Date
     }
 
+    interface ICarts {
+        _id: string;
+        quantity: number;
+        detail: IBookTable;
+    }
+
 }

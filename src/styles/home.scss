@@ -1,0 +1,82 @@
+.homepage-container {
+    margin: 20px 0 !important;
+
+    .customize-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px 10px;
+
+        .column {
+            height: 100%;
+            width: calc(20% - 10px); // Mặc định 5 cột trên Desktop
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                transform: translateY(-3px);
+            }
+
+            .wrapper {
+                cursor: pointer;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                border-radius: 5px;
+                padding: 10px;
+                text-align: center;
+                background: white;
+
+                .text {
+                    padding: 0.5rem 0;
+                    font-size: 0.875rem;
+                    min-height: 50px;
+                    font-weight: 500;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    width: 100%;
+                }
+
+                .rating {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 5px;
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .thumbnail {
+            max-width: 100%;
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+
+            img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+            }
+        }
+
+        // Responsive breakpoints
+        @media screen and (max-width: 1199px) {
+            .column {
+                width: calc(25% - 10px); // 4 cột trên Tablet
+            }
+        }
+
+        @media screen and (max-width: 799px) {
+            .column {
+                width: calc(33.33% - 10px); // 3 cột trên Mobile lớn
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .column {
+                width: calc(50% - 10px); // 2 cột trên Mobile nhỏ
+            }
+        }
+    }
+}
