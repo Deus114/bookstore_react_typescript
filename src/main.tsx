@@ -20,6 +20,8 @@ import { ProtectedRoute } from 'components/protected/protected-page';
 import Layout from './layout';
 import enUS from 'antd/locale/en_US';
 import BookPage from 'components/client/book/book';
+import OrderPage from 'pages/client/order';
+import HistoryPage from 'pages/client/history';
 
 const router = createBrowserRouter([
   {
@@ -35,14 +37,22 @@ const router = createBrowserRouter([
         element: <BookPage />,
       },
       {
+        path: "/order",
+        element:
+          <ProtectedRoute>
+            <OrderPage />
+          </ProtectedRoute>
+        ,
+      },
+      {
         path: "/about",
         element: <AboutPage />,
       },
       {
-        path: "/checkout",
+        path: "/history",
         element: (
           <ProtectedRoute>
-            <div>checkout page</div>
+            <HistoryPage />
           </ProtectedRoute>
         ),
       }

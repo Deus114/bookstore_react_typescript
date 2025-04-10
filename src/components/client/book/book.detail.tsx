@@ -1,4 +1,4 @@
-import { Row, Col, Rate, Divider } from 'antd';
+import { Row, Col, Rate, Divider, App } from 'antd';
 import './book.scss';
 import { useEffect, useRef, useState } from 'react';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
@@ -24,6 +24,7 @@ const BookDetail = (props: IProps) => {
     const refGallery = useRef<ImageGallery>(null)
     const [currentQuantity, setCurrentQuantity] = useState<number>(1);
     const { carts, setCarts } = useCurrentApp();
+    const { message } = App.useApp();
 
     useEffect(() => {
         if (currentBook) {
@@ -99,6 +100,7 @@ const BookDetail = (props: IProps) => {
             localStorage.setItem("carts", JSON.stringify(data));
             setCarts(data);
         }
+        message.success("Thêm vào giỏ hàng thành công!")
     }
 
     return (

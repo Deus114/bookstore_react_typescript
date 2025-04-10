@@ -24,9 +24,15 @@ export const AppProvider = (props: IProps) => {
     useEffect(() => {
         const fetchAccount = async () => {
             const res = await fetchAccountApi();
+            const carts = localStorage.getItem("carts");
             if (res.data) {
                 setUser(res.data.user);
                 setIsAuthenticated(true);
+
+                // handle f5
+                if (carts) {
+                    setCarts(JSON.parse(carts));
+                }
             }
             setIsAppLoading(false)
         }

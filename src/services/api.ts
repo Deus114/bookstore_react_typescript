@@ -115,3 +115,18 @@ export const getBookByIdApi = (_id: string) => {
         }
     });
 }
+
+export const createOrderApi = (
+    name: string, address: string,
+    phone: string, totalPrice: number, type: string, detail: any
+) => {
+    const backendUrl = `/api/v1/order`;
+    return axios.post<IBackendRes<IRegister>>(backendUrl,
+        { name, address, phone, totalPrice, type, detail }
+    );
+};
+
+export const getHistoryApi = () => {
+    const backendUrl = `/api/v1/history`;
+    return axios.get<IBackendRes<IHistory[]>>(backendUrl);
+};
