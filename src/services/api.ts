@@ -130,3 +130,36 @@ export const getHistoryApi = () => {
     const backendUrl = `/api/v1/history`;
     return axios.get<IBackendRes<IHistory[]>>(backendUrl);
 };
+
+export const updateUserInfoApi = (
+    _id: string, avatar: string, fullName: string, phone: string
+) => {
+    const backendUrl = `/api/v1/user`;
+    return axios.put<IBackendRes<IRegister>>(backendUrl,
+        { _id, avatar, fullName, phone }
+    );
+};
+
+export const updateUserPasswordApi = (
+    email: string, oldPass: string, newPass: string
+) => {
+    const backendUrl = `/api/v1/user/change-password`;
+    return axios.put<IBackendRes<IRegister>>(backendUrl,
+        { email, oldPass, newPass }
+    );
+};
+
+export const getOrdersApi = (query: string) => {
+    const backendUrl = `/api/v1/order?${query}`;
+    return axios.get<IBackendRes<IModelPaginate<IHistory>>>(backendUrl);
+};
+
+export const getDashboardApi = () => {
+    const backendUrl = `/api/v1/database/dashboard`;
+    return axios.get<IBackendRes<{
+        countOrder: number,
+        countUser: number,
+        countBook: number
+    }>>(backendUrl);
+};
+

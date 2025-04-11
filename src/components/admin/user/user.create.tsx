@@ -1,4 +1,4 @@
-import { App, Divider, Form, FormProps, Input, Modal } from "antd";
+import { App, Button, Divider, Form, FormProps, Input, Modal } from "antd";
 import { useState } from "react";
 import { createUserApi } from "services/api";
 
@@ -99,6 +99,7 @@ export const CreateUser = (props: IProps) => {
                     >
                         <Input />
                     </Form.Item>
+
                 </Form>
             </Modal>
         </>
