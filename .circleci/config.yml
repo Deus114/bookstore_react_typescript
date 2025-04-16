@@ -1,9 +1,10 @@
+# .circleci/config.yml
 version: 2.1
 
 executors:
   docker-executor:
     docker:
-      - image: cimg/node:22.2.1
+      - image: cimg/node:22.1
 
 jobs:
   build:
