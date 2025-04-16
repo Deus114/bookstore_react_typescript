@@ -1,41 +1,90 @@
-# This config was automatically generated from your source code
-# Stacks detected: deps:node:.
 version: 2.1
-orbs:
-  node: circleci/node@5
+
+executors:
+  docker-executor:
+    docker:
+      - image: cimg/node:20.3.1
+
 jobs:
-  build-node:
-    # Build node project
-    executor: node/default
+  build:
+    executor: docker-executor
     steps:
+      - setup_remote_docker
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
       - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Build the application
           command: npm run build
       - run:
-          name: Create the ~/artifacts directory if it doesn't exist
-          command: mkdir -p ~/artifacts
-      # Copy output to artifacts dir
-      - run:
-          name: Copy artifacts
-          command: cp -R build dist public .output .next .docusaurus ~/artifacts 2>/dev/null || true
-      - store_artifacts:
-          path: ~/artifacts
-          destination: node-build
-  deploy:
-    # This is an example deploy job, not actually used by the workflow
-    docker:
-      - image: cimg/base:stable
+          name: Verify build output
+          command: ls -lah dist
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+            - Dockerfile
+            - package.json
+            - vite.config.ts
+            - .dockerignore
+
+  push:
+    executor: docker-executor
     steps:
-      # Replace this with steps to deploy to users
+      - setup_remote_docker
+      - checkout
+      - attach_workspace:
+          at: .
       - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
+          name: Verify workspace contents
+          command: ls -lah dist
+      - run:
+          name: Build Docker Image
+          command: |
+            docker build \
+              --tag $DOCKER_IMAGE_NAME:latest \
+              --build-arg VITE_BACKEND_URL=$VITE_BACKEND_URL \
+              --build-arg VITE_USER_CREATE_DEFAULT_PASSWORD=$VITE_USER_CREATE_DEFAULT_PASSWORD \
+              .
+      - run:
+          name: Login to Docker Registry
+          command: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - run:
+          name: Push Docker Image
+          command: |
+            docker tag $DOCKER_IMAGE_NAME:latest $DOCKER_USERNAME/$DOCKER_IMAGE_NAME:latest
+            docker push $DOCKER_USERNAME/$DOCKER_IMAGE_NAME:latest
+
+  deploy:
+    executor: docker-executor
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:gebDA8+siZJWJqITTiusnDAOasS+jOnuPgq1jid0bAs"
+      - run:
+          name: Ensure directory exists on EC2
+          command: |
+            ssh -o StrictHostKeyChecking=no ubuntu@$EC2_HOST "mkdir -p /home/ubuntu/$DOCKER_IMAGE_NAME"
+      - run:
+          name: Deploy to EC2
+          command: |
+            ssh -o StrictHostKeyChecking=no ubuntu@$EC2_HOST "bash -s" <<EOF
+            docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+            docker stop $DOCKER_CONTAINER_NAME || true
+            docker rm $DOCKER_CONTAINER_NAME || true
+            docker pull $DOCKER_USERNAME/$DOCKER_IMAGE_NAME:latest
+            docker run -d -p $PORT:$PORT --name $DOCKER_CONTAINER_NAME $DOCKER_USERNAME/$DOCKER_IMAGE_NAME
+            EOF
+
 workflows:
-  build:
+  version: 2
+  build-and-deploy:
     jobs:
-      - build-node
-    # - deploy:
-    #     requires:
-    #       - build-node
+      - build
+      - push:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - push
