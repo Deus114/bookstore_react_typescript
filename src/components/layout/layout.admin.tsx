@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import { useCurrentApp } from '../context/app.context';
 import type { MenuProps } from 'antd';
 import { logoutApi } from 'services/api';
+import ManageAccount from 'components/client/account/account.manage';
 type MenuItem = Required<MenuProps>['items'][number];
 
 const { Content, Footer, Sider } = Layout;
@@ -23,7 +24,7 @@ const LayoutAdmin = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [activeMenu, setActiveMenu] = useState('dashboard');
     const { isAuthenticated, user, setUser, setIsAuthenticated } = useCurrentApp();
-
+    const [openManageAccount, setOpenManageAccount] = useState<boolean>(false);
 
     const handleLogout = async () => {
         let res = await logoutApi();
@@ -62,7 +63,7 @@ const LayoutAdmin = () => {
         {
             label: <label
                 style={{ cursor: 'pointer' }}
-                onClick={() => alert("me")}
+                onClick={() => setOpenManageAccount(true)}
             >Quản lý tài khoản</label>,
             key: 'account',
         },
@@ -138,7 +139,10 @@ const LayoutAdmin = () => {
                     </Footer>
                 </Layout>
             </Layout>
-
+            <ManageAccount
+                isOpenModal={openManageAccount}
+                setIsOpenModal={setOpenManageAccount}
+            />
         </>
     );
 };

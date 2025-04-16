@@ -2,7 +2,7 @@ import { FilterTwoTone, ReloadOutlined } from '@ant-design/icons';
 import { Row, Col, Form, Checkbox, Divider, InputNumber, Button, Rate, Tabs, Pagination, Spin, FormProps } from 'antd';
 import 'styles/home.scss';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { getBookApi, getCategoriesApi } from 'services/api';
 
 type FileType = {
@@ -24,6 +24,7 @@ const HomePage = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [sortQuery, setSortQuery] = useState<string>("sort=-sold");
     const [filter, setFilter] = useState<string>("");
+    const [searchTerm] = useOutletContext() as any;
 
     const [form] = Form.useForm();
     const navigate = useNavigate();
@@ -34,7 +35,7 @@ const HomePage = () => {
 
     useEffect(() => {
         fetchBook();
-    }, [current, pageSize, sortQuery, filter])
+    }, [current, pageSize, sortQuery, filter, searchTerm])
 
     const fetchBook = async () => {
         setIsLoading(true);
@@ -43,6 +44,8 @@ const HomePage = () => {
             query += `&${filter}`;
         if (sortQuery)
             query += `&${sortQuery}`;
+        if (searchTerm)
+            query += `&mainText=/${searchTerm}/i`
 
         const res = await getBookApi(query);
         if (res && res.data) {

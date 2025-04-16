@@ -1,5 +1,5 @@
-import { SmileOutlined } from "@ant-design/icons";
-import { Button, Col, Result, Steps } from "antd";
+import { HomeOutlined, SmileOutlined } from "@ant-design/icons";
+import { Breadcrumb, Button, Col, Result, Steps } from "antd";
 import OrderDetail from "components/client/order/order.detail";
 import Payment from "components/client/order/order.payment";
 import { useState } from "react";
@@ -11,6 +11,22 @@ const OrderPage = () => {
     return (
         <div style={{ background: '#efefef', padding: "20px 0" }}>
             <div className="order-container" style={{ maxWidth: 1440, margin: '0 auto' }}>
+                <Breadcrumb separator={">"} style={{ marginBottom: "1%" }}
+                    items={[
+                        {
+                            href: '/',
+                            title: <HomeOutlined />,
+                        },
+                        {
+                            href: '',
+                            title: (
+                                <>
+                                    <span>Chi tiết giỏ hàng</span>
+                                </>
+                            ),
+                        },
+                    ]}
+                />
                 <Steps
                     style={{ padding: "15px", backgroundColor: "white", marginBottom: "20px" }}
                     size="small"

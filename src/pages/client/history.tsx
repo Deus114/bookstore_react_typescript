@@ -1,4 +1,5 @@
-import { App, Divider, Drawer, Table, TableProps, Tag } from "antd";
+import { HomeOutlined } from "@ant-design/icons";
+import { App, Breadcrumb, Divider, Drawer, Table, TableProps, Tag } from "antd";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { getHistoryApi } from "services/api";
@@ -73,7 +74,23 @@ const HistoryPage = () => {
 
     return (
         <div style={{ margin: 50 }}>
-            <div>Lịch sử mua hàng</div>
+            <Breadcrumb separator={">"} style={{ marginBottom: "1%" }}
+                items={[
+                    {
+                        href: '/',
+                        title: <HomeOutlined />,
+                    },
+                    {
+                        href: '',
+                        title: (
+                            <>
+                                <span>Lịch sử mua hàng</span>
+                            </>
+                        ),
+                    },
+                ]}
+            />
+            <div style={{ color: "blue", textAlign: "center", fontSize: "25px" }}>Lịch sử mua hàng</div>
             <Divider />
             <Table
                 bordered

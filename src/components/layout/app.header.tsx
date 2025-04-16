@@ -14,7 +14,7 @@ import ManageAccount from 'components/client/account/account.manage';
 const AppHeader = (props: any) => {
     const [openDrawer, setOpenDrawer] = useState<boolean>(false);
     const [openManageAccount, setOpenManageAccount] = useState<boolean>(false);
-    const { isAuthenticated, user, setUser, setIsAuthenticated, carts } = useCurrentApp();
+    const { isAuthenticated, user, setUser, setIsAuthenticated, carts, setCarts } = useCurrentApp();
 
     const navigate = useNavigate();
 
@@ -24,6 +24,7 @@ const AppHeader = (props: any) => {
             setUser(null);
             setIsAuthenticated(false);
             localStorage.removeItem("access_token");
+            setCarts([]);
         }
     }
 
@@ -112,8 +113,8 @@ const AppHeader = (props: any) => {
                             <input
                                 className="input-search" type={'text'}
                                 placeholder="Bạn tìm gì hôm nay"
-                            // value={props.searchTerm}
-                            // onChange={(e) => props.setSearchTerm(e.target.value)}
+                                value={props.searchTerm}
+                                onChange={(e) => props.setSearchTerm(e.target.value)}
                             />
                         </div>
 
