@@ -109,11 +109,7 @@ export const deleteBookApi = (_id: string) => {
 
 export const getBookByIdApi = (_id: string) => {
     const backendUrl = `/api/v1/book/${_id}`;
-    return axios.get<IBackendRes<IBookTable>>(backendUrl, {
-        headers: {
-            delay: 1000
-        }
-    });
+    return axios.get<IBackendRes<IBookTable>>(backendUrl);
 }
 
 export const createOrderApi = (
