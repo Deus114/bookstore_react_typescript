@@ -2,7 +2,7 @@ import { DeleteTwoTone, EditTwoTone, ExportOutlined, PlusOutlined } from '@ant-d
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import { App, Button, Popconfirm } from 'antd';
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { deleteBookApi, getBookApi } from 'services/api';
 import { dateRangeValidate } from 'services/helper';
 import { CSVLink } from 'react-csv';
@@ -199,17 +199,18 @@ const TableBook = () => {
                 }}
                 headerTitle="Table user"
                 toolBarRender={() => [
-                    <CSVLink
-                        data={currentTableData}
-                        filename='book.csv'
-                    >
-                        <Button
-                            icon={<ExportOutlined />}
-                            type="primary"
-                        >
-                            Export
-                        </Button>
-                    </CSVLink>,
+                    React.createElement(CSVLink, {
+                        data: currentTableData,
+                        filename: 'book.csv',
+                        children: (
+                            <Button
+                                icon={<ExportOutlined />}
+                                type="primary"
+                            >
+                                Export
+                            </Button>
+                        )
+                    }),
                     <Button
                         key="button"
                         icon={<PlusOutlined />}

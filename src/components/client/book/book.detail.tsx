@@ -22,7 +22,7 @@ const BookDetail = (props: IProps) => {
     }[]>([]);
     const [isOpenModalGallery, setIsOpenModalGallery] = useState<boolean>(false);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
-    const refGallery = useRef<ImageGallery>(null)
+    const refGallery = useRef<any>(null);
     const [currentQuantity, setCurrentQuantity] = useState<number>(1);
     const { carts, setCarts, user } = useCurrentApp();
     const { message } = App.useApp();

@@ -2,7 +2,7 @@ import { CloudUploadOutlined, DeleteTwoTone, EditTwoTone, ExportOutlined, PlusOu
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import { App, Button, Popconfirm } from 'antd';
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { deleteUserApi, getUserApi } from 'services/api';
 import { dateRangeValidate } from 'services/helper';
 import { DetailUser } from './user.detail';
@@ -197,17 +197,18 @@ const TableUser = () => {
                 }}
                 headerTitle="Table user"
                 toolBarRender={() => [
-                    <Button
-                        icon={<ExportOutlined />}
-                        type="primary"
-                    >
-                        <CSVLink
-                            data={currentTableData}
-                            filename='user.csv'
-                        >
-                            Export
-                        </CSVLink>
-                    </Button>,
+                    React.createElement(CSVLink, {
+                        data: currentTableData,
+                        filename: 'user.csv',
+                        children: (
+                            <Button
+                                icon={<ExportOutlined />}
+                                type="primary"
+                            >
+                                Export
+                            </Button>
+                        )
+                    }),
                     <Button
                         icon={<CloudUploadOutlined />}
                         onClick={() => {
