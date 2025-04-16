@@ -9,7 +9,7 @@ import { useCurrentApp } from 'components/context/app.context';
 import { useNavigate } from 'react-router-dom';
 
 interface IProps {
-    currentBook: IBookTable;
+    currentBook: IBookTable | null;
 }
 
 const BookDetail = (props: IProps) => {
@@ -64,7 +64,7 @@ const BookDetail = (props: IProps) => {
             setCurrentQuantity(currentQuantity - 1);
         }
         if (type === "PLUS") {
-            if (currentQuantity === +currentBook.quantity) return;
+            if (currentQuantity === currentBook?.quantity) return;
             setCurrentQuantity(currentQuantity + 1);
         }
     }
@@ -96,9 +96,9 @@ const BookDetail = (props: IProps) => {
                 setCarts(cart);
             } else {
                 let data = [{
-                    _id: currentBook._id,
+                    _id: currentBook?._id ?? "",
                     quantity: currentQuantity,
-                    detail: currentBook
+                    detail: currentBook!
                 }];
                 localStorage.setItem("carts", JSON.stringify(data));
                 setCarts(data);
