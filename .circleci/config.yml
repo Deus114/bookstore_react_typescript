@@ -69,7 +69,7 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
-            ssh -o StrictHostKeyChecking=no ubuntu@$EC2_HOST "bash -s" <<EOF
+            ssh -o StrictHostKeyChecking=no ubuntu@$EC2_HOST "bash -s" \<<EOF
             docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
             docker stop $DOCKER_CONTAINER_NAME || true
             docker rm $DOCKER_CONTAINER_NAME || true
