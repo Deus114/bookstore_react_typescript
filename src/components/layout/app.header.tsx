@@ -24,6 +24,7 @@ const AppHeader = (props: any) => {
             setUser(null);
             setIsAuthenticated(false);
             localStorage.removeItem("access_token");
+            localStorage.removeItem("carts");
             setCarts([]);
         }
     }
