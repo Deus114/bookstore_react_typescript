@@ -133,16 +133,17 @@ export const CreateBook = (props: IProps) => {
         const file = options.file as UploadFile;
         const res = await uploadFileApi(file, "book");
         if (res && res.data) {
-            let uploadFile: any = {
+            let uploadFile: UploadFile = {
                 uid: file.uid,
-                name: res.data.fileUploaded,
+                name: res.data.fileName,
                 status: 'done',
-                url: `${import.meta.env.VITE_BACKEND_URL}/images/book/${res.data.fileUploaded}`
+                url: `${import.meta.env.VITE_BACKEND_URL}/images/book/${res.data.fileName}`
             }
             if (type === "thumbnail") {
                 setFileListThumbnail([{ ...uploadFile }]);
             } else {
                 setFileListSlider((prevState) => [...prevState, { ...uploadFile }]);
+                console.log(fileListSlider);
             }
             if (onSuccess) {
                 onSuccess("ok");

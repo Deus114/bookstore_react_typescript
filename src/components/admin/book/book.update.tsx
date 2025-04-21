@@ -177,9 +177,9 @@ export const UpdateBook = (props: IProps) => {
         if (res && res.data) {
             let uploadFile: any = {
                 uid: file.uid,
-                name: res.data.fileUploaded,
+                name: res.data.fileName,
                 status: 'done',
-                url: `${import.meta.env.VITE_BACKEND_URL}/images/book/${res.data.fileUploaded}`
+                url: `${import.meta.env.VITE_BACKEND_URL}/images/book/${res.data.fileName}`
             }
             if (type === "thumbnail") {
                 setFileListThumbnail([{ ...uploadFile }]);

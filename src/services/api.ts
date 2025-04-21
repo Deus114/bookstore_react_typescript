@@ -68,7 +68,7 @@ export const getCategoriesApi = () => {
 export const uploadFileApi = (fileImg: any, folder: string) => {
     const formData = new FormData();
     formData.append('fileUpload', fileImg);
-    return axios<IBackendRes<{ fileUploaded: string }>>({
+    return axios<IBackendRes<{ fileName: string }>>({
         method: "post",
         url: "/api/v1/file/upload",
         data: formData,
