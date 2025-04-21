@@ -180,6 +180,8 @@ export const CreateBook = (props: IProps) => {
                     form.resetFields();
                     setFileListSlider([]);
                     setFileListThumbnail([]);
+                    setIsLoadingSlider(false);
+                    setIsLoadingThumbnail(false);
                 }}
                 okText="Tạo mới"
                 cancelText="Hủy"

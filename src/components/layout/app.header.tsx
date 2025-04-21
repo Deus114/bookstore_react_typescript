@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FaReact } from 'react-icons/fa'
 import { FiShoppingCart } from 'react-icons/fi';
 import { VscSearchFuzzy } from 'react-icons/vsc';
-import { Divider, Badge, Drawer, Avatar, Popover, Empty, Row, Col } from 'antd';
+import { Divider, Badge, Drawer, Avatar, Popover, Empty, Row, Col, App } from 'antd';
 import { Dropdown, Space } from 'antd';
 import { useNavigate } from 'react-router';
 import './app.header.scss';
@@ -15,7 +15,7 @@ const AppHeader = (props: any) => {
     const [openDrawer, setOpenDrawer] = useState<boolean>(false);
     const [openManageAccount, setOpenManageAccount] = useState<boolean>(false);
     const { isAuthenticated, user, setUser, setIsAuthenticated, carts, setCarts } = useCurrentApp();
-
+    const { message } = App.useApp();
     const navigate = useNavigate();
 
     const handleLogout = async () => {
@@ -26,15 +26,18 @@ const AppHeader = (props: any) => {
             localStorage.removeItem("access_token");
             localStorage.removeItem("carts");
             setCarts([]);
+            message.success("Đăng xuất thành công!")
         }
     }
 
     let items = [
         {
-            label: <label
-                style={{ cursor: 'pointer' }}
-                onClick={() => setOpenManageAccount(true)}
-            >Quản lý tài khoản</label>,
+            label: <a>
+                <label
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => setOpenManageAccount(true)}
+                >Quản lý tài khoản</label>
+            </a>,
             key: 'account',
         },
         {
@@ -42,10 +45,11 @@ const AppHeader = (props: any) => {
             key: 'history',
         },
         {
-            label: <label
-                style={{ cursor: 'pointer' }}
-                onClick={() => handleLogout()}
-            >Đăng xuất</label>,
+            label: <a onClick={() => handleLogout()}>
+                <label
+                    style={{ cursor: 'pointer' }}
+                >Đăng xuất</label>
+            </a>,
             key: 'logout',
         },
 

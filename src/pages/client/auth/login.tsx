@@ -3,7 +3,7 @@ import type { FormProps } from 'antd';
 import { App, Button, Divider, Form, Input } from 'antd';
 import { useCurrentApp } from 'components/context/app.context';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginApi } from 'services/api';
 
 
@@ -44,57 +44,57 @@ const LoginPage = () => {
     };
 
     return (
-        <div className='register' style={{ padding: '50px' }}>
-            <h2 style={{ textAlign: 'center' }} className='text text-large'>Đăng Nhập</h2>
-            <Divider />
-            <Form
-                name="basic"
-                labelCol={{ span: 6 }}
-                style={{ maxWidth: 600, margin: '0 auto' }}
-                initialValues={{ remember: true }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                autoComplete="off"
-            >
-                <Form.Item<FieldType>
-                    labelCol={{ span: '24' }}
-                    label="Email"
-                    name="username"
-                    rules={[
-                        { required: true, message: 'Hãy nhập email!' },
-                        { type: "email", message: 'Email không đúng định dạng!' }
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
+        <div className={"login-page"}>
+            <main className={"main"}>
+                <div className={"container"}>
+                    <section className={"wrapper"}>
+                        <div className={"heading"}>
+                            <h2 className={`text text-large`}>Đăng Nhập</h2>
+                            <Divider />
 
-                <Form.Item<FieldType>
-                    labelCol={{ span: '24' }}
-                    label="Mật khẩu"
-                    name="password"
-                    rules={[{ required: true, message: 'Hãy nhập mật khẩu!' }]}
-                >
-                    <Input.Password />
-                </Form.Item>
+                        </div>
+                        <Form
+                            name="basic"
+                            // style={{ maxWidth: 600, margin: '0 auto' }}
+                            onFinish={onFinish}
+                            autoComplete="off"
+                        >
+                            <Form.Item
+                                labelCol={{ span: 24 }} //whole column
+                                label="Email"
+                                name="username"
+                                rules={[{ required: true, message: 'Email không được để trống!' }]}
+                            >
+                                <Input />
+                            </Form.Item>
 
-                <Form.Item
-                    style={{ display: 'flex', justifyContent: 'center' }}
-                    wrapperCol={{ span: 24 }}
-                >
-                    <Button type="primary" htmlType="submit"
-                        loading={isSubmit}
-                        disabled={isSubmit}
-                    >
-                        Đăng nhập
-                    </Button>
-                </Form.Item>
-                <Divider>Or</Divider>
-                <p className='text text-normal' style={{ textAlign: 'center' }}>
-                    Chưa có tài khoản?
-                    <span className='navigate' onClick={() => navigate('/register')}>Đăng ký</span> | <HomeOutlined onClick={() => navigate("/")} />
-                </p>
-            </Form>
+                            <Form.Item
+                                labelCol={{ span: 24 }} //whole column
+                                label="Mật khẩu"
+                                name="password"
+                                rules={[{ required: true, message: 'Mật khẩu không được để trống!' }]}
+                            >
+                                <Input.Password />
+                            </Form.Item>
 
+                            <Form.Item
+                                style={{ display: 'flex', justifyContent: 'center' }}
+                                wrapperCol={{ span: 24 }}
+                            >
+                                <Button type="primary" htmlType="submit" loading={isSubmit}>
+                                    Đăng nhập
+                                </Button>
+                            </Form.Item>
+                            <Divider>Or</Divider>
+                            <p className="text text-normal" style={{ textAlign: 'center' }}>Chưa có tài khoản ?
+                                <span>
+                                    <Link to='/register' > Đăng Ký </Link> | <HomeOutlined onClick={() => navigate("/")} />
+                                </span>
+                            </p>
+                        </Form>
+                    </section>
+                </div>
+            </main>
         </div>
     );
 }

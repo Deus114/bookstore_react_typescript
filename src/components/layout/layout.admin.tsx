@@ -8,8 +8,8 @@ import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, Dropdown, Space, Avatar } from 'antd';
-import { Outlet } from "react-router-dom";
+import { Layout, Menu, Dropdown, Space, Avatar, App } from 'antd';
+import { Outlet, useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { useCurrentApp } from '../context/app.context';
 import type { MenuProps } from 'antd';
@@ -25,6 +25,8 @@ const LayoutAdmin = () => {
     const [activeMenu, setActiveMenu] = useState('dashboard');
     const { isAuthenticated, user, setUser, setIsAuthenticated } = useCurrentApp();
     const [openManageAccount, setOpenManageAccount] = useState<boolean>(false);
+    const { message } = App.useApp();
+    const navigate = useNavigate();
 
     const handleLogout = async () => {
         let res = await logoutApi();
@@ -32,6 +34,8 @@ const LayoutAdmin = () => {
             setUser(null);
             setIsAuthenticated(false);
             localStorage.removeItem("access_token");
+            message.success("Đăng xuất thành công!")
+            navigate("/");
         }
     }
 
@@ -72,10 +76,11 @@ const LayoutAdmin = () => {
             key: 'home',
         },
         {
-            label: <label
-                style={{ cursor: 'pointer' }}
-                onClick={() => handleLogout()}
-            >Đăng xuất</label>,
+            label: <a onClick={() => handleLogout()}>
+                <label
+                    style={{ cursor: 'pointer' }}
+                >Đăng xuất</label>
+            </a>,
             key: 'logout',
         },
 

@@ -43,7 +43,7 @@ const Footer = () => {
                             </div>
                             <div>
                                 <MailOutlined />
-                                <span> cskh@booktore.com.vn</span>
+                                <span> cskh@bookstore.com.vn</span>
                             </div>
                             <div>
                                 <PhoneOutlined />
