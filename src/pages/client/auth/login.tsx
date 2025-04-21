@@ -1,3 +1,4 @@
+import { HomeOutlined } from '@ant-design/icons';
 import type { FormProps } from 'antd';
 import { App, Button, Divider, Form, Input } from 'antd';
 import { useCurrentApp } from 'components/context/app.context';
@@ -90,7 +91,7 @@ const LoginPage = () => {
                 <Divider>Or</Divider>
                 <p className='text text-normal' style={{ textAlign: 'center' }}>
                     Chưa có tài khoản?
-                    <span className='navigate' onClick={() => navigate('/register')}>Đăng ký</span>
+                    <span className='navigate' onClick={() => navigate('/register')}>Đăng ký</span> | <HomeOutlined onClick={() => navigate("/")} />
                 </p>
             </Form>
 

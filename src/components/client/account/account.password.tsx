@@ -86,7 +86,6 @@ const ChangePassword = () => {
                         </Form.Item>
                     </Form>
                 </Col>
-
             </Row>
         </div>
     )
