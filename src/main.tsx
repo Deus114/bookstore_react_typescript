@@ -4,7 +4,6 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import AboutPage from 'pages/client/about';
 import LoginPage from 'pages/client/auth/login';
 import RegisterPage from 'pages/client/auth/register';
 import "styles/global.scss"
@@ -43,10 +42,6 @@ const router = createBrowserRouter([
             <OrderPage />
           </ProtectedRoute>
         ,
-      },
-      {
-        path: "/about",
-        element: <AboutPage />,
       },
       {
         path: "/history",
