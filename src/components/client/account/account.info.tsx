@@ -1,10 +1,11 @@
 import { App, Avatar, Col, Form, FormProps, Row, UploadFile, Upload, Button, Input } from "antd"
 import { useCurrentApp } from "components/context/app.context";
 import { useEffect, useState } from "react";
-import { updateUserInfoApi, uploadFileApi } from "services/api";
+import { logoutApi, updateUserInfoApi, uploadFileApi } from "services/api";
 import { UploadRequestOption as RcCustomRequestOptions } from 'rc-upload/lib/interface';
 import { UploadChangeParam } from "antd/es/upload";
 import { AntDesignOutlined, UploadOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 type FieldType = {
     _id: string;
@@ -19,6 +20,7 @@ const AccountInfo = () => {
     const [userAvatar, setUserAvatar] = useState(user?.avatar ?? "")
     const [isubmit, setIsSubmit] = useState<boolean>(false);
     const { message, notification } = App.useApp();
+    const navigate = useNavigate();
 
     const urlAvatar = `${import.meta.env.VITE_BACKEND_URL}/images/avatar/${userAvatar}`;
 
@@ -72,14 +74,11 @@ const AccountInfo = () => {
         )
 
         if (res && res.data) {
-            setUser({
-                ...user!,
-                avatar: userAvatar,
-                fullName,
-                phone
-            })
-            message.success('Cập nhật thành công!');
+            await logoutApi();
+            setUser(null)
             localStorage.removeItem("access_token")
+            message.success('Cập nhật thành công! Vui lòng đăng nhập lại');
+            navigate("/login");
         } else {
             notification.error({
                 message: 'Đã có lỗi xảy ra!',

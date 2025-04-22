@@ -14,6 +14,7 @@ interface IProps {
 type UserMethod = "COD" | "BANKING";
 
 type FieldType = {
+    userId: string;
     fullName: string;
     phone: string;
     address: string;
@@ -31,6 +32,7 @@ const Payment = (props: IProps) => {
     useEffect(() => {
         if (user) {
             form.setFieldsValue({
+                userId: user.id,
                 fullName: user.fullName,
                 phone: user.phone,
                 method: "COD"
@@ -52,7 +54,7 @@ const Payment = (props: IProps) => {
 
     const handlePlaceOrder: FormProps<FieldType>['onFinish'] = async (value) => {
         setIsSubmit(true)
-        const { address, fullName, method, phone } = value;
+        const { userId, address, fullName, method, phone } = value;
         const detail = carts.map(item => ({
             _id: item._id,
             quantity: item.quantity,
@@ -60,13 +62,14 @@ const Payment = (props: IProps) => {
         }))
 
         const res = await createOrderApi(
-            fullName, address, phone, total, method, detail
+            userId, fullName, address, phone, total, method, detail
         )
         if (res && res.data) {
             localStorage.removeItem("carts");
             setCarts([]);
             message.success("Mua hàng thành công!");
             setCurrentStep(2);
+            form.resetFields();
         } else {
             notification.error({
                 message: "Có lỗi xảy ra!",
@@ -123,6 +126,15 @@ const Payment = (props: IProps) => {
                         autoComplete="off"
                         form={form}
                     >
+                        <Form.Item<FieldType>
+                            labelCol={{ span: '24' }}
+                            label="User ID"
+                            name="userId"
+                            rules={[{ required: true, message: 'Hãy nhập ID người dùng!' }]}
+                            hidden
+                        >
+                            <Input />
+                        </Form.Item>
                         <Form.Item<FieldType>
                             labelCol={{ span: '24' }}
                             label="Tên người nhận"

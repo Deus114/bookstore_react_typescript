@@ -1,5 +1,9 @@
 import axios from "services/axios.customize"
 
+/* 
+    Auth module
+*/
+
 export const loginApi = (username: string, password: string) => {
     const backendUrl = "/api/v1/auth/login";
     return axios.post<IBackendRes<ILogin>>(backendUrl, { username, password });
@@ -19,6 +23,10 @@ export const logoutApi = () => {
     const backendUrl = "/api/v1/auth/logout";
     return axios.post<IBackendRes<ILogin>>(backendUrl);
 };
+
+/* 
+    User module
+*/
 
 export const getUserApi = (query: string) => {
     const backendUrl = `/api/v1/user?${query}`;
@@ -55,29 +63,32 @@ export const deleteUserApi = (_id: string) => {
     return axios.delete<IBackendRes<IRegister>>(backendUrl,);
 };
 
+export const updateUserInfoApi = (
+    _id: string, avatar: string, fullName: string, phone: string
+) => {
+    const backendUrl = `/api/v1/user`;
+    return axios.put<IBackendRes<IRegister>>(backendUrl,
+        { _id, avatar, fullName, phone }
+    );
+};
+
+export const updateUserPasswordApi = (
+    email: string, oldPass: string, newPass: string
+) => {
+    const backendUrl = `/api/v1/user/change-password`;
+    return axios.put<IBackendRes<IRegister>>(backendUrl,
+        { email, oldPass, newPass }
+    );
+};
+
+/* 
+    Book module
+*/
+
 export const getBookApi = (query: string) => {
     const backendUrl = `/api/v1/book?${query}`;
     return axios.get<IBackendRes<IModelPaginate<IBookTable>>>(backendUrl);
 };
-
-export const getCategoriesApi = () => {
-    const backendUrl = `/api/v1/database/category`;
-    return axios.get<IBackendRes<string[]>>(backendUrl);
-};
-
-export const uploadFileApi = (fileImg: any, folder: string) => {
-    const formData = new FormData();
-    formData.append('fileUpload', fileImg);
-    return axios<IBackendRes<{ fileName: string }>>({
-        method: "post",
-        url: "/api/v1/file/upload",
-        data: formData,
-        headers: {
-            "Content-Type": "multipart/form-data",
-            "folder_type": folder
-        }
-    })
-}
 
 export const createBookApi = (
     mainText: string, author: string,
@@ -112,13 +123,41 @@ export const getBookByIdApi = (_id: string) => {
     return axios.get<IBackendRes<IBookTable>>(backendUrl);
 }
 
+
+/* 
+    File module
+*/
+
+export const uploadFileApi = (fileImg: any, folder: string) => {
+    const formData = new FormData();
+    formData.append('fileUpload', fileImg);
+    return axios<IBackendRes<{ fileName: string }>>({
+        method: "post",
+        url: "/api/v1/file/upload",
+        data: formData,
+        headers: {
+            "Content-Type": "multipart/form-data",
+            "folder_type": folder
+        }
+    })
+}
+
+/* 
+    Order module
+*/
+
+export const getOrdersApi = (query: string) => {
+    const backendUrl = `/api/v1/order?${query}`;
+    return axios.get<IBackendRes<IModelPaginate<IHistory>>>(backendUrl);
+};
+
 export const createOrderApi = (
-    name: string, address: string,
+    userId: string, name: string, address: string,
     phone: string, totalPrice: number, type: string, detail: any
 ) => {
     const backendUrl = `/api/v1/order`;
     return axios.post<IBackendRes<IRegister>>(backendUrl,
-        { name, address, phone, totalPrice, type, detail }
+        { userId, name, address, phone, totalPrice, type, detail }
     );
 };
 
@@ -127,28 +166,9 @@ export const getHistoryApi = () => {
     return axios.get<IBackendRes<IHistory[]>>(backendUrl);
 };
 
-export const updateUserInfoApi = (
-    _id: string, avatar: string, fullName: string, phone: string
-) => {
-    const backendUrl = `/api/v1/user`;
-    return axios.put<IBackendRes<IRegister>>(backendUrl,
-        { _id, avatar, fullName, phone }
-    );
-};
-
-export const updateUserPasswordApi = (
-    email: string, oldPass: string, newPass: string
-) => {
-    const backendUrl = `/api/v1/user/change-password`;
-    return axios.put<IBackendRes<IRegister>>(backendUrl,
-        { email, oldPass, newPass }
-    );
-};
-
-export const getOrdersApi = (query: string) => {
-    const backendUrl = `/api/v1/order?${query}`;
-    return axios.get<IBackendRes<IModelPaginate<IHistory>>>(backendUrl);
-};
+/* 
+    Database module
+*/
 
 export const getDashboardApi = () => {
     const backendUrl = `/api/v1/database/dashboard`;
@@ -157,5 +177,10 @@ export const getDashboardApi = () => {
         countUser: number,
         countBook: number
     }>>(backendUrl);
+};
+
+export const getCategoriesApi = () => {
+    const backendUrl = `/api/v1/database/category`;
+    return axios.get<IBackendRes<string[]>>(backendUrl);
 };
 

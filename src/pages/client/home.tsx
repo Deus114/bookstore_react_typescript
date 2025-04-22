@@ -72,6 +72,7 @@ const HomePage = () => {
                 let q = cat.join(',');
                 let query = `&category=${q}`;
                 setFilter(query);
+                setCurrent(1);
             } else {
                 setFilter("");
             }
@@ -88,10 +89,6 @@ const HomePage = () => {
             setFilter(q);
         }
     }
-
-    const onChange = () => {
-        // setSortQuery(key);
-    };
 
     const handleOnchangePage = (pagination: { current: number, pageSize: number }) => {
         if (pagination && pagination.current !== current) {
@@ -236,7 +233,10 @@ const HomePage = () => {
                                 </Form.Item>
                             </div>
                             <div>
-                                <Button onClick={() => form.submit()}
+                                <Button onClick={() => {
+                                    setCurrent(1);
+                                    form.submit()
+                                }}
                                     style={{ width: "100%" }} type='primary'>Áp dụng</Button>
                             </div>
                         </Form.Item>

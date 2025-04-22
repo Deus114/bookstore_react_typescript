@@ -32,10 +32,9 @@ const AppHeader = (props: any) => {
 
     let items = [
         {
-            label: <a>
+            label: <a onClick={() => setOpenManageAccount(true)}>
                 <label
                     style={{ cursor: 'pointer' }}
-                    onClick={() => setOpenManageAccount(true)}
                 >Quản lý tài khoản</label>
             </a>,
             key: 'account',
