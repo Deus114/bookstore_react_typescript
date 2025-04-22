@@ -147,7 +147,7 @@ const AppHeader = (props: any) => {
                 </header>
             </div>
             <div className="commit-bar">
-                <div className="commit-item"><CheckCircleOutlined className="icon" /> 100% hàng thật</div>
+                <div className="commit-item"><CheckCircleOutlined className="icon" /> 100% Hàng thật</div>
                 <div className="commit-item"><CarOutlined className="icon" /> Freeship mọi đơn</div>
                 <div className="commit-item"><SyncOutlined className="icon" /> Hoàn 200% nếu hàng giả</div>
                 <div className="commit-item"><GiftOutlined className="icon" /> 30 ngày đổi trả</div>
