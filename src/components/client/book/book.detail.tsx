@@ -167,7 +167,7 @@ const BookDetail = (props: IProps) => {
                                 </div>
                                 <div className='price'>
                                     <span className='currency'>
-                                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(currentBook?.price ?? 0)}đ
+                                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(currentBook?.price ?? 0)}
                                     </span>
                                 </div>
                                 <div className='delivery'>
