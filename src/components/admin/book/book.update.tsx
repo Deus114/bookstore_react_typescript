@@ -214,7 +214,7 @@ export const UpdateBook = (props: IProps) => {
         <>
             <Modal
                 style={{ marginTop: "-3%" }}
-                title="Thêm sách mới"
+                title="Cập nhật sách"
                 open={openModalUpdate}
                 onOk={() => form.submit()}
                 onCancel={() => {
@@ -224,7 +224,7 @@ export const UpdateBook = (props: IProps) => {
                     setFileListThumbnail([]);
                     setDataUpdate(null);
                 }}
-                okText="Tạo mới"
+                okText="Cập nhật"
                 cancelText="Hủy"
                 confirmLoading={isubmit}
                 width={"50vw"}

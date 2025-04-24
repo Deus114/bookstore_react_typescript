@@ -65,7 +65,6 @@ export const CreateBook = (props: IProps) => {
         const { mainText, author, price, quantity, category } = values;
         const thumbnail = fileListThumbnail?.[0]?.name ?? "";
         const slider = fileListSlider?.map(item => item.name) ?? [];
-
         const res = await createBookApi(
             mainText, author, category, price, quantity, thumbnail, slider
         )
@@ -143,7 +142,6 @@ export const CreateBook = (props: IProps) => {
                 setFileListThumbnail([{ ...uploadFile }]);
             } else {
                 setFileListSlider((prevState) => [...prevState, { ...uploadFile }]);
-                console.log(fileListSlider);
             }
             if (onSuccess) {
                 onSuccess("ok");
